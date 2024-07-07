@@ -34,7 +34,7 @@ router.get('/:username', ensureCorrectUser, async (req, res, next) => {
     throw new ExpressError("User not found", 404)
   }
   try {
-    const user = await User.get(username);
+    const user = await User.get(req.params.username);
     return res.json({ user });
   } 
   catch(e) {
@@ -59,7 +59,7 @@ router.get('/:username/to', ensureCorrectUser, async (req, res, next) => {
     throw new ExpressError("User not found", 404)
   }
   try {
-    const messages = await User.messagesTo;
+    const messages = await User.messagesTo(req.params.username);
     return res.json({ messages });
   } 
   catch(e) {
@@ -84,7 +84,7 @@ router.get('/:username/from', ensureCorrectUser, async (req, res, next) => {
     throw new ExpressError("User not found", 404)
   }
   try {
-    const messages = await User.messagesFrom;
+    const messages = await User.messagesFrom(req.params.username);
     return res.json({ messages });
   } 
   catch(e) {
